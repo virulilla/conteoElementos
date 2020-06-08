@@ -3,8 +3,8 @@ from datetime import datetime, timedelta
 
 
 print "Inicio " + str(datetime.now().time())
-fRecibido = open("C://CYII//conteoElementos//data//recibido//RA_58270//recibido.txt", 'w')
-fEnviado = open("C://CYII//conteoElementos//data//enviado//RA_58270//enviado.txt", 'w')
+
+f = open("C://CYII//conteoElementos//data//conteo.txt",'w')
 mdbRecibido = "C://CYII//conteoElementos//data//recibido//RA_58270//replica.mdb"
 mdbEnviado = "C://CYII//conteoElementos//data//enviado//RA_58270//replica.mdb"
 
@@ -29,8 +29,6 @@ for ds in listaDS:
         key = arcpy.Describe(fc).name
         value = str(arcpy.GetCount_management(fc + "ViewREC"))
         dicRecibido[key] = value
-        fRecibido.writelines(dicRecibido)
-fRecibido.close()
 
 arcpy.env.workspace = mdbEnviado
 dicEnviado = {}
@@ -46,8 +44,14 @@ for ds in listaDS:
         key = arcpy.Describe(fc).name
         value = str(arcpy.GetCount_management(fc + "ViewENV"))
         dicEnviado[key] = value
-        fEnviado.writelines(dicRecibido)
-fEnviado.close()
 
+f.writelines("FC    ENVIADO    RECIBIDO" + "\n")
+f.writelines("--------------------------" + "\n")
+for env, rec in zip(dicEnviado.items(), dicRecibido.items()):
+    if env > rec:
+        line = env[0] + ": " + env[1] + ">" + rec[1] + "\n"
+        f.writelines(line)
+
+f.close()
 
 print "Fin " + str(datetime.now().time())
