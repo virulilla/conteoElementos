@@ -4,7 +4,7 @@ from datetime import datetime, timedelta
 
 print "Inicio " + str(datetime.now().time())
 
-f = open("C://CYII//conteoElementos//data//conteo.txt",'w')
+f = open("C://CYII//conteoElementos//conteo.txt",'w')
 mdbRecibido = "C://CYII//conteoElementos//data//recibido//RA_58270//replica.mdb"
 mdbEnviado = "C://CYII//conteoElementos//data//enviado//RA_58270//replica.mdb"
 
